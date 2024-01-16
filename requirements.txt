@@ -1,0 +1,7 @@
+fastapi==0.100.1
+uvicorn[standard]==0.23.2
+fastapi[all]
+gspread
+oauth2client
+line-bot-sdk
+python-dotenv
