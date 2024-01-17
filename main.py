@@ -4,8 +4,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import json
 import os
-from linebot.v3.webhook import WebhookHandler
-from linebot.v3.messaging import ApiClient,Configuration
+from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, FlexSendMessage, BubbleContainer, ImageComponent, MessageAction, PostbackEvent
 from datetime import datetime
@@ -21,7 +20,7 @@ logging.basicConfig(level=logging.INFO)
 load_dotenv()
 
 # LINEの設定
-line_bot_api = ApiClient(Configuration(access_token=os.environ.get('LINE_CHANNEL_ACCESS_TOKEN')))
+line_bot_api = LineBotApi(os.environ.get('LINE_CHANNEL_ACCESS_TOKEN'))
 handle = WebhookHandler(os.environ.get('LINE_CHANNEL_SECRET'))
 
 # 環境変数から個々の認証情報を読み込む
@@ -58,7 +57,6 @@ home_url = os.environ.get('HOME_URL')
 
 @app.get("/api/test")
 async def test():
-    return {"status": "OK"}
     url = f"{home_url}/api/webhook"  # 実際のAPIのURLに置き換えてください
 
     # APIに送信するデータ
